@@ -23,16 +23,16 @@
             </objects>
             <point key="canvasLocation" x="140" y="104"/>
         </scene>
-        <!--Usuarios View Controller-->
+        <!--Barbero List View Controller-->
         <scene sceneID="QJK-Yy-tNL">
             <objects>
-                <viewController id="QGh-cl-ywR" customClass="UsuariosViewController" customModule="JavaBarber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QGh-cl-ywR" customClass="BarberoListViewController" customModule="JavaBarber" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XzR-wu-bT7">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Registros de Usuarios" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59P-Fa-4Rd">
-                                <rect key="frame" x="112" y="81" width="167" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Registros de Barberos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59P-Fa-4Rd">
+                                <rect key="frame" x="112" y="81" width="169" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -46,14 +46,60 @@
                                     <outlet property="delegate" destination="QGh-cl-ywR" id="QbK-va-2aH"/>
                                 </connections>
                             </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="120" estimatedRowHeight="140" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="PTd-UJ-1ah">
+                                <rect key="frame" x="0.0" y="189" width="393" height="552"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BarberoCell" rowHeight="120" id="cM6-KE-Nk4" customClass="BarberoCell" customModule="JavaBarber" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="120"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cM6-KE-Nk4" id="q9x-sn-bzr">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="120"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="nombre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qBU-IP-1ja">
+                                                    <rect key="frame" x="20" y="62" width="150" height="16"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSV-8R-ux1">
+                                                    <rect key="frame" x="302" y="32" width="68" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="editar"/>
+                                                </button>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qch-Yn-RLN">
+                                                    <rect key="frame" x="20" y="32" width="150" height="14"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="emailLabel" destination="qch-Yn-RLN" id="oYw-iK-Lhp"/>
+                                            <outlet property="nombresLabel" destination="qBU-IP-1ja" id="Ut6-eb-ol9"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BYn-yI-Fuh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="barberoCellTableView" destination="PTd-UJ-1ah" id="Kg9-R7-Fl3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EJA-vk-Uk1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004" y="133"/>
+            <point key="canvasLocation" x="1052.6717557251909" y="145.77464788732394"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="WnA-9K-ggJ">
@@ -64,7 +110,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UsuariosCell" textLabel="ESQ-6l-jLK" detailTextLabel="1rc-DN-JNI" rowHeight="70" style="IBUITableViewCellStyleSubtitle" id="Pnl-8u-FZS" customClass="UsuariosCell" customModule="JavaBarber" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="ESQ-6l-jLK" detailTextLabel="1rc-DN-JNI" rowHeight="70" style="IBUITableViewCellStyleSubtitle" id="Pnl-8u-FZS" customClass="BarberoCell" customModule="JavaBarber" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="393" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pnl-8u-FZS" id="BTG-FB-xIr">
@@ -87,10 +133,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="emailLabel" destination="1rc-DN-JNI" id="GYJ-CP-ip2"/>
-                                    <outlet property="nombresLabel" destination="ESQ-6l-jLK" id="Wdj-a3-zJ1"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -101,7 +143,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XeF-cU-0tP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1681.679389312977" y="124.64788732394366"/>
+            <point key="canvasLocation" x="2307.6335877862593" y="124.64788732394366"/>
         </scene>
     </scenes>
     <resources>

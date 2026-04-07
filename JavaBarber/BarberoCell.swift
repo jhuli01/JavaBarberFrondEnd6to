@@ -7,14 +7,18 @@
 
 import UIKit
 
-class UsuariosCell: UITableViewCell {
+class BarberoCell: UITableViewCell {
 
     @IBOutlet weak var nombresLabel: UILabel!
-    
     @IBOutlet weak var emailLabel: UILabel!
     
     
     
+    
+    func configure(with barbero: Barbero){
+        nombresLabel.text = barbero.nombreBarbero
+        emailLabel.text = barbero.emailBarbero
+    }
     
     
     
