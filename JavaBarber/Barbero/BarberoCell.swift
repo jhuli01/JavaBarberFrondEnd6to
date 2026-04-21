@@ -13,13 +13,12 @@ class BarberoCell: UITableViewCell {
     @IBOutlet weak var emailLabel: UILabel!
     
     
+    // obtener los datos para listarlos
     
-    
-    func configure(with barbero: Barbero){
+    func configureBarberoCell(with barbero: Barbero){
         nombresLabel.text = barbero.nombreBarbero
         emailLabel.text = barbero.emailBarbero
     }
-    
     
     
     
