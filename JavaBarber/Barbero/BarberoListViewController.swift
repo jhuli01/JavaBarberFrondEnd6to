@@ -14,7 +14,7 @@ struct Barbero: Decodable{
     var edadBarbero: Int
     var emailBarbero: String
     var usuarioBarbero: String?
-    var contraseñaBarbero: String?
+    var contrasenaBarbero: String?
 }
 
 class BarberoListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
@@ -33,9 +33,12 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
         barberoCellTableView.dataSource = self
         barberoCellTableView.delegate = self
         
-        // cargar los barberos
-        fetchContactosDeAPI()
        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchBarverosDeAPI() // Se ejecuta cada vez que la pantalla aparece
     }
     
     
@@ -74,7 +77,7 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
     
 
     // MARK: - API Read (GET) /// listar productos
-    func fetchContactosDeAPI() {
+    func fetchBarverosDeAPI() {
         guard let url = URL(string: "http://localhost:8080/api/barberos") else { return }
             
             URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
