@@ -55,7 +55,7 @@ class BarberoFormViewController: UIViewController {
         
         
         // 2. Configurar la URL y el Request
-        guard let url = URL(string: "http://localhost:8080/api/barberos") else { return }
+        guard let url = URL(string: "https://motivated-courage-production-877a.up.railway.app/api/barberos") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

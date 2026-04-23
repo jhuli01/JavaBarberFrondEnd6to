@@ -78,7 +78,7 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
 
     // MARK: - API Read (GET) /// listar productos
     func fetchBarverosDeAPI() {
-        guard let url = URL(string: "http://localhost:8080/api/barberos") else { return }
+        guard let url = URL(string: "https://motivated-courage-production-877a.up.railway.app/api/barberos") else { return }
             
             URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
                 // Primero, verifica si hay un error de red
