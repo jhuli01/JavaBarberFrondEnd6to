@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xab-nG-O8W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UME-RQ-Lgo">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
@@ -180,50 +180,56 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="181" id="huH-hu-NIL" customClass="ReservaBarberoCell" customModule="JavaBarber" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="181"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReservaBarberoCell" rowHeight="259" id="huH-hu-NIL" customClass="ReservaBarberoCell" customModule="JavaBarber" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="259"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="huH-hu-NIL" id="gUO-MD-yEF">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="181"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="259"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10:00 a.m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PeG-J9-Ymp">
-                                                    <rect key="frame" x="20" y="53" width="76" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="nombre cliente" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TcN-De-382">
-                                                    <rect key="frame" x="121" y="15" width="114" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="servicio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hgs-x8-gmE">
-                                                    <rect key="frame" x="121" y="53" width="59" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" confirmada" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIw-5m-cHl">
-                                                    <rect key="frame" x="267" y="53" width="106" height="36"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.74289514485147423" green="1" blue="0.66714465689184099" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.025056250101371337" green="0.5" blue="0.002812130909927546" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1sO-Jv-s5V">
+                                                    <rect key="frame" x="30" y="20" width="333" height="219"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="servicio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hgs-x8-gmE">
+                                                            <rect key="frame" x="0.0" y="0.0" width="333" height="48.666666666666664"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nombre cliente" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TcN-De-382">
+                                                            <rect key="frame" x="0.0" y="56.666666666666671" width="333" height="49"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00 a.m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PeG-J9-Ymp">
+                                                            <rect key="frame" x="0.0" y="113.66666666666667" width="333" height="48.666666666666671"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" confirmada" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIw-5m-cHl">
+                                                            <rect key="frame" x="0.0" y="170.33333333333334" width="333" height="48.666666666666657"/>
+                                                            <color key="backgroundColor" red="0.74289514485147423" green="1" blue="0.66714465689184099" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.025056250101371337" green="0.5" blue="0.002812130909927546" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="1sO-Jv-s5V" secondAttribute="bottom" constant="5" id="OoW-sP-JOw"/>
+                                                <constraint firstItem="1sO-Jv-s5V" firstAttribute="top" secondItem="gUO-MD-yEF" secondAttribute="topMargin" constant="5" id="ZTF-j1-t9j"/>
+                                                <constraint firstItem="1sO-Jv-s5V" firstAttribute="leading" secondItem="gUO-MD-yEF" secondAttribute="leadingMargin" constant="10" id="gdL-JS-IdV"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="1sO-Jv-s5V" secondAttribute="trailing" constant="10" id="qx0-lb-b25"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="estadoLabel" destination="LIw-5m-cHl" id="ALY-cr-qxA"/>
                                             <outlet property="horaLabel" destination="PeG-J9-Ymp" id="rt7-WR-Wtl"/>
                                             <outlet property="nombreClienteLabel" destination="TcN-De-382" id="9s6-49-RFa"/>
                                             <outlet property="sservicioLabel" destination="Hgs-x8-gmE" id="EKa-bz-9Ke"/>
-                                            <segue destination="CEG-DP-Gip" kind="show" id="Af4-NB-CAg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -235,11 +241,12 @@
                     <navigationItem key="navigationItem" title="Agenda" id="l6A-8W-Tmj"/>
                     <connections>
                         <outlet property="reservaCitaCell" destination="KfS-cv-GcL" id="PRa-tJ-48T"/>
+                        <segue destination="CEG-DP-Gip" kind="show" identifier="segueDetalleReserva" id="12a-kU-LY4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WKx-bf-fR5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4220.6106870229005" y="879.57746478873241"/>
+            <point key="canvasLocation" x="4291" y="874"/>
         </scene>
         <!--Detalle-->
         <scene sceneID="CBr-jz-p5H">
@@ -334,7 +341,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="estado: En curso" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISA-fS-el6">
-                                        <rect key="frame" x="11" y="103" width="134" height="31"/>
+                                        <rect key="frame" x="11" y="103" width="201" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.74289514489999997" green="1" blue="0.66714465690000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -351,6 +358,9 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Marcar completada">
                                     <color key="baseBackgroundColor" systemColor="labelColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="marcarCompletada:" destination="CEG-DP-Gip" eventType="touchUpInside" id="v8e-R5-fkH"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkR-OZ-smv">
                                 <rect key="frame" x="45" y="669" width="315" height="35"/>
@@ -362,6 +372,9 @@
                                     </backgroundConfiguration>
                                     <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="confirmarCita:" destination="CEG-DP-Gip" eventType="touchUpInside" id="b8F-xu-FYj"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Uu-UC-DfM">
                                 <rect key="frame" x="45" y="724" width="315" height="35"/>
@@ -373,12 +386,24 @@
                                         <color key="strokeColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </backgroundConfiguration>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="cancelarCita:" destination="CEG-DP-Gip" eventType="touchUpInside" id="MQo-55-jgY"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="evm-E2-nmm"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Detalle" id="g3y-ud-VTY"/>
+                    <connections>
+                        <outlet property="citaEstadoLabel" destination="ISA-fS-el6" id="BLk-wx-2cN"/>
+                        <outlet property="clienteEmailLabel" destination="6Nl-dU-XiL" id="RRt-6e-ozG"/>
+                        <outlet property="clienteNombreLabel" destination="g2F-f1-2VN" id="RAI-13-PVv"/>
+                        <outlet property="clienteTelefonoLabel" destination="JAc-u2-70a" id="UpZ-tb-fQ8"/>
+                        <outlet property="fechaHoraLabel" destination="6JX-wa-fF2" id="cKp-oZ-F4p"/>
+                        <outlet property="servicioNombreLabel" destination="n1e-zN-Tk3" id="2aP-y7-tfD"/>
+                        <outlet property="servicioPrecioLabel" destination="wK1-Mf-QcM" id="pFf-cj-9Hk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vIX-5O-gcw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

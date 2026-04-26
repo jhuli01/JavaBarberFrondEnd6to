@@ -8,22 +8,13 @@
 import UIKit
 
 
-struct Barbero: Decodable{
-    var idBarbero: Int
-    var nombreBarbero: String
-    var edadBarbero: Int
-    var emailBarbero: String
-    var usuarioBarbero: String?
-    var contrasenaBarbero: String?
-}
-
 class BarberoListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     // se conecto a la celda del tableView con el storyboard
     @IBOutlet weak var barberoCellTableView: UITableView!
     
     
-    var barberos: [Barbero] = []
+    var barberos: [BarberoAPI] = []
     
     
     override func viewDidLoad() {
@@ -90,7 +81,7 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
                 guard let data = data else { return }
                 
                 do {
-                    let decoded = try JSONDecoder().decode([Barbero].self, from: data)
+                    let decoded = try JSONDecoder().decode([BarberoAPI].self, from: data)
                     DispatchQueue.main.async {
                         self?.barberos = decoded
                         self?.barberoCellTableView.reloadData()

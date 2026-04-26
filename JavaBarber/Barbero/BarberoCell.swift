@@ -15,7 +15,7 @@ class BarberoCell: UITableViewCell {
     
     // obtener los datos para listarlos
     
-    func configureBarberoCell(with barbero: Barbero){
+    func configureBarberoCell(with barbero: BarberoAPI){
         nombresLabel.text = barbero.nombreBarbero
         emailLabel.text = barbero.emailBarbero
     }
