@@ -13,13 +13,28 @@ class BarberoReservaListaViewController: UIViewController, UITableViewDataSource
         reservaCitaCell.delegate = self
     }
     
+    @IBAction func cerrarSesion(_ sender: Any) {
+        
+        UserDefaults.standard.removeObject(forKey: "userToken")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchReservas() // Carga los datos cada vez que entras a la pantalla
+        fetchReservas()
     }
+    
+    
     
     func fetchReservas() {
         guard let url = URL(string: apiUrl) else { return }
+        
+        var request = URLRequest(url: url)
+        if let token = UserDefaults.standard.string(forKey: "userToken") {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
         
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             if let error = error {
@@ -30,7 +45,7 @@ class BarberoReservaListaViewController: UIViewController, UITableViewDataSource
             guard let data = data else { return }
             
             do {
-                // Usamos nuestro nuevo modelo CitaAPI
+                
                 let decoded = try JSONDecoder().decode([CitaAPI].self, from: data)
                 DispatchQueue.main.async {
                     self?.citas = decoded
@@ -49,16 +64,14 @@ class BarberoReservaListaViewController: UIViewController, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Asegúrate de que en el Storyboard la celda tenga el Identifier "ReservaBarberoCell"
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReservaBarberoCell", for: indexPath) as? ReservaBarberoCell else {
             return UITableViewCell()
         }
         
         let cita = citas[indexPath.row]
-        
-        // Llenamos la celda con los datos de la API
         cell.nombreClienteLabel.text = cita.cliente.nombreCliente
-        cell.sservicioLabel.text = cita.servicio.nombreServicio
+        cell.servicioLabel.text = cita.servicio.nombreServicio
         cell.horaLabel.text = cita.hora
         cell.estadoLabel.text = cita.estado
         

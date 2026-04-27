@@ -47,7 +47,6 @@ class LoginViewController: UIViewController {
             // 2. Ejecutar la petición
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 
-                // Regresamos al hilo principal para actualizar la UI
                 DispatchQueue.main.async {
                     if let error = error {
                         self.mostrarAlerta(mensaje: "Error de conexión: \(error.localizedDescription)")
@@ -56,11 +55,20 @@ class LoginViewController: UIViewController {
                     
                     guard let httpResponse = response as? HTTPURLResponse else { return }
                     
-                    if httpResponse.statusCode == 200 {
-
-                        self.ingresarAlApp()
-                    } else if httpResponse.statusCode == 403 {
-                        self.mostrarAlerta(mensaje: "Acceso denegado (403). Revisa tus credenciales o el backend.")
+                    if httpResponse.statusCode == 200, let data = data {
+                        do {
+                            let loginResponse = try JSONDecoder().decode(LoginResponseAPI.self, from: data)
+                            
+                            // Guardar el token para usarlo en las peticiones
+                            UserDefaults.standard.set(loginResponse.token, forKey: "userToken")
+                            
+                            self.ingresarAlApp(rol: loginResponse.rol ?? "")
+                        } catch {
+                            print("Error al decodificar respuesta: \(error)")
+                            self.ingresarAlApp(rol: "ADMIN") // Fallback
+                        }
+                    } else if httpResponse.statusCode == 401 || httpResponse.statusCode == 403 {
+                        self.mostrarAlerta(mensaje: "Usuario o contraseña incorrectos.")
                     } else {
                         self.mostrarAlerta(mensaje: "Error en el servidor: \(httpResponse.statusCode)")
                     }
@@ -70,8 +78,21 @@ class LoginViewController: UIViewController {
         
     }
 
-        func ingresarAlApp() {
-            if let mainVC = storyboard?.instantiateViewController(withIdentifier: "NavIndentificador") {
+        func ingresarAlApp(rol: String) {
+            var identifier = "NavIndentificador" // Default Admin
+            
+            switch rol.uppercased() {
+            case "ADMIN":
+                identifier = "NavIndentificador"
+            case "BARBERO":
+                identifier = "BarberoIndentificador"
+            case "CLIENTE":
+                identifier = "clienteNavIdentificador"
+            default:
+                identifier = "NavIndentificador"
+            }
+            
+            if let mainVC = storyboard?.instantiateViewController(withIdentifier: identifier) {
                     mainVC.modalPresentationStyle = .fullScreen
                     self.present(mainVC, animated: true, completion: nil)
                 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UME-RQ-Lgo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xab-nG-O8W">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
@@ -141,8 +141,8 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="emailLabel" destination="l0h-fq-rYm" id="jdt-QL-FEt"/>
-                                            <outlet property="nombresLabel" destination="784-lC-Jqc" id="xB7-GU-MOI"/>
+                                            <outlet property="emailLabel" destination="l0h-fq-rYm" id="zgq-jB-xX2"/>
+                                            <outlet property="nombresLabel" destination="784-lC-Jqc" id="2Yq-wy-RVe"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -152,6 +152,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Barberos" id="ijZ-Vm-7Jr">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="iphone.and.arrow.forward.outward" catalog="system" landscapeImage="rec" id="A6W-tI-eau">
+                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="cerrarSesion:" destination="QGh-cl-ywR" id="BLa-Hw-fPW"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ytc-CN-xjs">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
@@ -229,7 +235,7 @@
                                             <outlet property="estadoLabel" destination="LIw-5m-cHl" id="ALY-cr-qxA"/>
                                             <outlet property="horaLabel" destination="PeG-J9-Ymp" id="rt7-WR-Wtl"/>
                                             <outlet property="nombreClienteLabel" destination="TcN-De-382" id="9s6-49-RFa"/>
-                                            <outlet property="sservicioLabel" destination="Hgs-x8-gmE" id="EKa-bz-9Ke"/>
+                                            <outlet property="servicioLabel" destination="Hgs-x8-gmE" id="EKa-bz-9Ke"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -238,7 +244,14 @@
                         <viewLayoutGuide key="safeArea" id="ysd-bP-jan"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Agenda" id="l6A-8W-Tmj"/>
+                    <navigationItem key="navigationItem" title="Agenda" id="l6A-8W-Tmj">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="iphone.and.arrow.right.outward" catalog="system" id="JOj-pp-xut">
+                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="cerrarSesion:" destination="gOa-CH-GFt" id="hpK-YK-zcY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="reservaCitaCell" destination="KfS-cv-GcL" id="PRa-tJ-48T"/>
                         <segue destination="CEG-DP-Gip" kind="show" identifier="segueDetalleReserva" id="12a-kU-LY4"/>
@@ -320,21 +333,21 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nombre Servicio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1e-zN-Tk3">
-                                        <rect key="frame" x="11" y="17" width="121" height="20"/>
+                                        <rect key="frame" x="11" y="17" width="190" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lunes 21 Abr. 10:00 a.m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JX-wa-fF2">
-                                        <rect key="frame" x="11" y="46" width="169" height="20"/>
+                                        <rect key="frame" x="11" y="46" width="190" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="precio : S/.20.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wK1-Mf-QcM">
-                                        <rect key="frame" x="11" y="75" width="118" height="20"/>
+                                        <rect key="frame" x="11" y="75" width="190" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
@@ -346,6 +359,20 @@
                                         <color key="backgroundColor" red="0.74289514489999997" green="1" blue="0.66714465690000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" red="0.0250562501" green="0.5" blue="0.0028121309100000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Duracion" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBw-4h-VEA">
+                                        <rect key="frame" x="219" y="17" width="101" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hora" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUL-gl-ru4">
+                                        <rect key="frame" x="219" y="45" width="101" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -397,10 +424,12 @@
                     <navigationItem key="navigationItem" title="Detalle" id="g3y-ud-VTY"/>
                     <connections>
                         <outlet property="citaEstadoLabel" destination="ISA-fS-el6" id="BLk-wx-2cN"/>
+                        <outlet property="citaFechaLabel" destination="6JX-wa-fF2" id="cKp-oZ-F4p"/>
+                        <outlet property="citaHoraLabel" destination="EUL-gl-ru4" id="KPk-1R-2fp"/>
                         <outlet property="clienteEmailLabel" destination="6Nl-dU-XiL" id="RRt-6e-ozG"/>
                         <outlet property="clienteNombreLabel" destination="g2F-f1-2VN" id="RAI-13-PVv"/>
                         <outlet property="clienteTelefonoLabel" destination="JAc-u2-70a" id="UpZ-tb-fQ8"/>
-                        <outlet property="fechaHoraLabel" destination="6JX-wa-fF2" id="cKp-oZ-F4p"/>
+                        <outlet property="servicioDuracionLabel" destination="iBw-4h-VEA" id="aAF-Cs-HDs"/>
                         <outlet property="servicioNombreLabel" destination="n1e-zN-Tk3" id="2aP-y7-tfD"/>
                         <outlet property="servicioPrecioLabel" destination="wK1-Mf-QcM" id="pFf-cj-9Hk"/>
                     </connections>
@@ -565,8 +594,12 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Cliente" style="browser" id="ICf-m2-76v">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" image="person.circle.fill" catalog="system" landscapeImage="person.circle.fill" width="26" id="DAP-WB-sfl">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="iphone.and.arrow.right.outward" catalog="system" landscapeImage="person.circle.fill" width="26" id="DAP-WB-sfl">
                                             <inset key="imageInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="cerrarSesion:" destination="HNs-Kt-x2W" id="0er-fB-Mxs"/>
+                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Nueva Reserva" id="MSl-iZ-vJB">
                                             <connections>
@@ -1009,7 +1042,7 @@
         <!--Navigation Controller-->
         <scene sceneID="aPu-LC-Tfi">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UME-RQ-Lgo" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="BarberoIndentificador" automaticallyAdjustsScrollViewInsets="NO" id="UME-RQ-Lgo" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nlO-PG-LEw">
                         <rect key="frame" x="0.0" y="118" width="393" height="54"/>
@@ -1031,9 +1064,12 @@
         <image name="clock" catalog="system" width="128" height="123"/>
         <image name="envelope" catalog="system" width="128" height="85"/>
         <image name="imagenLoginOri" width="5267" height="7900"/>
+        <image name="iphone.and.arrow.forward.outward" catalog="system" width="125" height="128"/>
+        <image name="iphone.and.arrow.right.outward" catalog="system" width="125" height="128"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="phone" catalog="system" width="128" height="115"/>
+        <image name="rec" width="128" height="128"/>
         <image name="square.and.arrow.down" catalog="system" width="114" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -4,16 +4,18 @@ class DetalleReservaBarberoViewController: UIViewController {
 
     var cita: CitaAPI?
     
-    // Conecta estos 3 a la sección de "Cliente"
+
     @IBOutlet weak var clienteNombreLabel: UILabel!
     @IBOutlet weak var clienteTelefonoLabel: UILabel!
     @IBOutlet weak var clienteEmailLabel: UILabel!
     
-    // Conecta estos 4 a la sección de "Servicio"
-    @IBOutlet weak var servicioNombreLabel: UILabel! // El nombre del servicio
-    @IBOutlet weak var fechaHoraLabel: UILabel!      // Aquí va: "lunes 21 Abr. 10:00 a.m"
-    @IBOutlet weak var servicioPrecioLabel: UILabel! // El precio
-    @IBOutlet weak var citaEstadoLabel: UILabel!    // El recuadro del estado
+    @IBOutlet weak var servicioPrecioLabel: UILabel!
+    @IBOutlet weak var servicioNombreLabel: UILabel!
+    @IBOutlet weak var servicioDuracionLabel: UILabel!
+    
+    @IBOutlet weak var citaFechaLabel: UILabel!
+    @IBOutlet weak var citaHoraLabel: UILabel!
+    @IBOutlet weak var citaEstadoLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,18 +25,19 @@ class DetalleReservaBarberoViewController: UIViewController {
     func configurarVista() {
         guard let cita = cita else { return }
         
-        // Sección Cliente
+        
         clienteNombreLabel.text = cita.cliente.nombreCliente
         clienteTelefonoLabel.text = cita.cliente.telefonoCliente ?? "No disponible"
         clienteEmailLabel.text = cita.cliente.emailCliente ?? "No disponible"
         
-        // Sección Servicio (Siguiendo tu diseño)
         servicioNombreLabel.text = cita.servicio.nombreServicio
-        fechaHoraLabel.text = "\(cita.fecha) \(cita.hora)"
-        servicioPrecioLabel.text = "precio : S/.\(cita.servicio.precioServicio ?? 0.0)"
+        servicioPrecioLabel.text = "Precio: $\(cita.servicio.precioServicio ?? 0.0)"
+        servicioDuracionLabel.text = "Duración: \(cita.servicio.duracionServicio ?? 0) min"
         
-        // Estado
-        citaEstadoLabel.text = "estado: \(cita.estado ?? "Desconocido")"
+        citaFechaLabel.text = "Fecha: \(cita.fecha)"
+        citaHoraLabel.text = "Hora: \(cita.hora)"
+        citaEstadoLabel.text = "Estado: \(cita.estado ?? "Desconocido")"
+        
         actualizarColorEstado(cita.estado)
     }
     
@@ -76,14 +79,26 @@ class DetalleReservaBarberoViewController: UIViewController {
         
         do {
             request.httpBody = try JSONEncoder().encode(citaActualizada)
-            URLSession.shared.dataTask(with: request) { [weak self] _, _, _ in
+            
+            URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
                 DispatchQueue.main.async {
+                    if let error = error {
+                        print("Error: \(error.localizedDescription)")
+                        return
+                    }
+                    
                     self?.cita = citaActualizada
                     self?.configurarVista()
+                    
+                    let alert = UIAlertController(title: "Éxito", message: "Cita actualizada a: \(nuevoEstado)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self?.present(alert, animated: true)
                 }
             }.resume()
+            
         } catch {
-            print("Error")
+            print("Error al codificar cita")
         }
+
     }
 }

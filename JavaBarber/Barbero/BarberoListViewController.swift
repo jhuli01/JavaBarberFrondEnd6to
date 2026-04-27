@@ -24,7 +24,13 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
         barberoCellTableView.dataSource = self
         barberoCellTableView.delegate = self
         
-       
+    }
+    
+    
+    @IBAction func cerrarSesion(_ sender: Any) {
+        
+        UserDefaults.standard.removeObject(forKey: "userToken")
+        dismiss(animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,8 +52,9 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
         
         let barbero = barberos[indexPath.row]
         
-        // Configurar la celda
-        cell.configureBarberoCell(with: barbero)
+        cell.nombresLabel.text = barbero.nombreBarbero
+        cell.emailLabel.text = barbero.emailBarbero
+        
         return cell
     }
     
@@ -56,7 +63,6 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // Aquí puedes manejar la selección de un barbero
         let barbero = barberos[indexPath.row]
         print("Barbero seleccionado: \(barbero.nombreBarbero)")
     }
@@ -87,7 +93,6 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
                         self?.barberoCellTableView.reloadData()
                     }
                 } catch {
-                    // Esto te dirá exactamente qué parte del JSON falló
                     print("Error al decodificar: \(error)")
                 }
             }.resume()

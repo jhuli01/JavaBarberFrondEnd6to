@@ -1,7 +1,7 @@
 
 import Foundation
 
-// Renombramos los modelos para evitar conflictos con el código existente
+
 struct BarberoAPI: Codable {
     var idBarbero: Int?
     var nombreBarbero: String
@@ -34,3 +34,10 @@ struct CitaAPI: Codable {
     var estado: String?
 }
 
+struct LoginResponseAPI: Codable {
+    let token: String?
+    let username: String?
+    let rol: String?
+    let idBarbero: Int?
+    let idCliente: Int?
+}

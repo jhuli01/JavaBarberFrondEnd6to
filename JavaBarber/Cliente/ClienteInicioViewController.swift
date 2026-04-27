@@ -15,7 +15,13 @@ class ClienteInicioViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    
+    @IBAction func cerrarSesion(_ sender: Any) {
+        
+        UserDefaults.standard.removeObject(forKey: "userToken")
+        dismiss(animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
