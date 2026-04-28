@@ -1,0 +1,42 @@
+# Xcode
+#
+# gitignore contributors: checkout the Gists to get more compilation interfaces if you need it.
+
+## Build results
+build/
+DerivedData/
+
+## User-specific files (Aquí es donde entra tu error original)
+*.xcuserstate
+*.xcuserdatad
+*.xcscmblueprint
+*.xccheckout
+*.vsprops
+*.favicons
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+libexec
+xcuserdata/
+
+## Personal settings
+.AppleDouble
+.LSOverride
+
+## Local config
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+## Swift Package Manager
+.build/
+.swiftpm/
+
+## CocoaPods (Descomenta si usas pods)
+# Pods/
+# *.xcworkspace
