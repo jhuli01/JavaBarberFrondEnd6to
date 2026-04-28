@@ -11,17 +11,7 @@ class BarberoCell: UITableViewCell {
 
     @IBOutlet weak var nombresLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
-    
-    
-    // obtener los datos para listarlos
-    /*
-    func configureBarberoCell(with barbero: BarberoAPI){
-        nombresLabel.text = barbero.nombreBarbero
-        emailLabel.text = barbero.emailBarbero
-    }
-    */
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

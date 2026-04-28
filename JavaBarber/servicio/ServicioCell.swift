@@ -1,19 +1,19 @@
 //
-//  ReservaBarberoCellTableViewCell.swift
+//  ServicioCellTableViewCell.swift
 //  JavaBarber
 //
-//  Created by wilder trujillo on 2026/04/25.
+//  Created by wilder trujillo on 2026/04/28.
 //
 
 import UIKit
 
-class ReservaBarberoCell: UITableViewCell {
+class ServicioCell: UITableViewCell {
+
+    @IBOutlet weak var servicioNombreLabel: UILabel!
+    @IBOutlet weak var servicioPrecioLabel: UILabel!
+    @IBOutlet weak var servicioDuracionLabel: UILabel!
     
-    @IBOutlet weak var nombreClienteLabel: UILabel!
-    @IBOutlet weak var servicioLabel: UILabel!
-    @IBOutlet weak var horaLabel: UILabel!
-    @IBOutlet weak var estadoLabel: UILabel!
- 
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

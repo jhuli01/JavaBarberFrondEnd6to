@@ -64,7 +64,19 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.deselectRow(at: indexPath, animated: true)
         
         let barbero = barberos[indexPath.row]
-        print("Barbero seleccionado: \(barbero.nombreBarbero)")
+        
+       /* let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "BarberoDetalleViewController") as! BarberoDetalleViewController
+        */
+        // performSegue(withIdentifier: "segueBarberoDetalle", sender: barbero)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "BarberoDetalleViewController") as! BarberoDetalleViewController
+        vc.barbero = barbero
+        navigationController?.pushViewController(vc, animated: true)
+        
+        
+        //self.present(vc, animated: true, completion: nil)
     }
     
     
@@ -77,10 +89,20 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
     func fetchBarverosDeAPI() {
         guard let url = URL(string: "https://motivated-courage-production-877a.up.railway.app/api/barberos") else { return }
             
-            URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-                // Primero, verifica si hay un error de red
+        var request = URLRequest(url: url)
+        
+        if let token = UserDefaults.standard.string(forKey: "userToken") {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+            URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
                 if let error = error {
-                    print("Error de red: \(error)")
+                    print("Error de red: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    print("Error del servidor: código \(httpResponse.statusCode)")
                     return
                 }
                 
