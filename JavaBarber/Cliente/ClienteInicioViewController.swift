@@ -7,29 +7,137 @@
 
 import UIKit
 
-class ClienteInicioViewController: UIViewController {
-
+class ClienteInicioViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    
+    
+    
+    @IBOutlet weak var clienteNombreLabel: UILabel!
+    @IBOutlet weak var ServicioNombreLabel: UILabel!
+    @IBOutlet weak var nombreBarberoLabel: UILabel!
+    @IBOutlet weak var estadoLabel: UILabel!
+    @IBOutlet weak var fechaHoraLabel: UILabel!
+    
+    @IBOutlet weak var proximaCitaView: UIView!
+    
+    @IBOutlet weak var historialCitaTableCell: UITableView!
+    
+    var proximaCita: CitaAPI?
+    var historialCitas: [CitaAPI] = []
+    var idCliente: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        idCliente = UserDefaults.standard.integer(forKey: "idCliente")
+        
+        historialCitaTableCell.dataSource = self
+        historialCitaTableCell.delegate = self
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(verProximaCita))
+        proximaCitaView.addGestureRecognizer(tap)
+        proximaCitaView.isUserInteractionEnabled = true
+        
     }
     
     
     @IBAction func cerrarSesion(_ sender: Any) {
         
         UserDefaults.standard.removeObject(forKey: "userToken")
-        dismiss(animated: true, completion: nil)
+            UserDefaults.standard.removeObject(forKey: "idCliente")
+            dismiss(animated: true, completion: nil)
     }
     
-    /*
-    // MARK: - Navigation
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+        idCliente = UserDefaults.standard.integer(forKey: "idCliente")
+            fetchCitasCliente()
+        }
+    
+    @objc func verProximaCita() {
+            guard let cita = proximaCita else { return }
+            performSegue(withIdentifier: "segueCitaDetalle", sender: cita)
+        }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func fetchCitasCliente() {
+            guard let url = URL(string: "https://motivated-courage-production-877a.up.railway.app/api/citas") else { return }
+            
+            var request = URLRequest(url: url)
+            if let token = UserDefaults.standard.string(forKey: "userToken") {
+                request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            }
+            
+        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+                    if let error = error {
+                        print("Error: \(error.localizedDescription)")
+                        return
+                    }
+                    guard let data = data else { return }
+                    
+                    do {
+                        let todasLasCitas = try JSONDecoder().decode([CitaAPI].self, from: data)
+                        let idCliente = self?.idCliente ?? 0
+                        
+                        let citasDelCliente = todasLasCitas.filter { $0.cliente.idCliente == idCliente }
+                        
+                        DispatchQueue.main.async {
+                            // Separar próxima cita (Confirmada) del historial (Completada/Cancelada)
+                            self?.proximaCita = citasDelCliente.first(where: { $0.estado == "Programada" })
+                            self?.historialCitas = citasDelCliente.filter({ $0.estado != "Programada" })
+                            self?.actualizarUI()
+                            self?.historialCitaTableCell.reloadData()
+                        }
+                    } catch {
+                        print("Error al decodificar: \(error)")
+                    }
+                }.resume()
+        }
+    
+    func actualizarUI() {
+        if let cita = proximaCita {
+                clienteNombreLabel.text = cita.cliente.nombreCliente
+                ServicioNombreLabel.text = cita.servicio.nombreServicio
+                nombreBarberoLabel.text = cita.barbero.nombreBarbero
+                fechaHoraLabel.text = "\(cita.fecha) - \(cita.hora)"
+                estadoLabel.text = cita.estado ?? "Programada"
+                estadoLabel.backgroundColor = .systemGreen
+                estadoLabel.textColor = .white
+                estadoLabel.layer.cornerRadius = 4
+                estadoLabel.clipsToBounds = true
+                proximaCitaView.isHidden = false
+            } else {
+                proximaCitaView.isHidden = true   // ocultar card si no hay cita
+            }
+        }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return historialCitas.count
     }
-    */
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CitaHistorialCell", for: indexPath) as? CitaHistorialTableViewCell else {
+                    return UITableViewCell()
+                }
+                let cita = historialCitas[indexPath.row]
+                cell.configurar(con: cita)
+                return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let citaSeleccionada = historialCitas[indexPath.row]
+        performSegue(withIdentifier: "segueCitaDetalle", sender: citaSeleccionada)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueCitaDetalle",
+           let destination = segue.destination as? ClienteCitaDetalleViewController,
+           let cita = sender as? CitaAPI {
+            destination.cita = cita
+        }
+    }
+    
 
 }

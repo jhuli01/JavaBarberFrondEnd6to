@@ -62,6 +62,13 @@ class LoginViewController: UIViewController {
                             // Guardar el token para usarlo en las peticiones
                             UserDefaults.standard.set(loginResponse.token, forKey: "userToken")
                             
+                            if let idCliente = loginResponse.idCliente {
+                                UserDefaults.standard.set(idCliente, forKey: "idCliente")
+                            }
+                            if let idBarbero = loginResponse.idBarbero {
+                                UserDefaults.standard.set(idBarbero, forKey: "idBarbero")
+                            }
+                            
                             self.ingresarAlApp(rol: loginResponse.rol ?? "")
                         } catch {
                             print("Error al decodificar respuesta: \(error)")

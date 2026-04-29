@@ -8,6 +8,7 @@ struct BarberoAPI: Codable {
     var edadBarbero: Int?
     var emailBarbero: String?
     var usuarioBarbero: String?
+    var contrasenaBarbero: String?
 }
 
 struct ClienteAPI: Codable {

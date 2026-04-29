@@ -1,6 +1,6 @@
 import UIKit
 
-class BarberoReservaListaViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class citaListaViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var reservaCitaCell: UITableView!
     
@@ -65,7 +65,7 @@ class BarberoReservaListaViewController: UIViewController, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReservaBarberoCell", for: indexPath) as? ReservaBarberoCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "citaReservadaCell", for: indexPath) as? citaReservadaCell else {
             return UITableViewCell()
         }
         
@@ -90,13 +90,13 @@ class BarberoReservaListaViewController: UIViewController, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let citaSeleccionada = citas[indexPath.row]
-        // Este Segue lo debes crear en el Storyboard (de la celda al Detalle)
-        performSegue(withIdentifier: "segueDetalleReserva", sender: citaSeleccionada)
+        
+        performSegue(withIdentifier: "segueCitaDetalle", sender: citaSeleccionada)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueDetalleReserva",
-           let destination = segue.destination as? DetalleReservaBarberoViewController,
+        if segue.identifier == "segueCitaDetalle",
+           let destination = segue.destination as? citaReservadaDetalleViewController,
            let cita = sender as? CitaAPI {
             destination.cita = cita
         }

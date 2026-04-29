@@ -1,61 +1,46 @@
 //
-//  BarberoFormViewController.swift
+//  ServicioNuevoFormViewController.swift
 //  JavaBarber
 //
-//  Created by trujillo on 2026/04/21.
+//  Created by wilder trujillo on 2026/04/28.
 //
 
 import UIKit
 
-class BarberoFormViewController: UIViewController {
+class ServicioNuevoFormViewController: UIViewController {
 
-    @IBOutlet weak var nombreTextField: UITextField!
-    @IBOutlet weak var edadTextField: UITextField!
-    @IBOutlet weak var emaiTextField: UITextField!
-    @IBOutlet weak var usuarioTextField: UITextField!
-    @IBOutlet weak var contrasenaTextField: UITextField!
+    @IBOutlet weak var servicioNombreTextField: UITextField!
+    @IBOutlet weak var servicioPrecioTextField: UITextField!
+    @IBOutlet weak var servicioDuracionTextField: UITextField!
     
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
-
-    
-    // MARK: - Guardar
-     
-    @IBAction func guardarBarbero(_ sender: Any) {
+    @IBAction func guardarServicio(_ sender: Any) {
         
         validarGuardarDatos()
-        
     }
     
-    func validarGuardarDatos(){
-    
-        let nombre = nombreTextField.text ?? ""
-        let edad = Int(edadTextField.text ?? "")
-        let email = emaiTextField.text ?? ""
-        let usuario = usuarioTextField.text ?? ""
-        let contrasena = contrasenaTextField.text ?? ""
+    func validarGuardarDatos() {
+        let nombreServicio = servicioNombreTextField.text ?? ""
+        let precio = servicioPrecioTextField.text ?? ""
+        let duracion = servicioDuracionTextField.text ?? ""
         
-        guard !nombre.isEmpty, !email.isEmpty, !usuario.isEmpty, !contrasena.isEmpty else {
-            mostrarAlerta("Por favor complete todos los campos")
+        guard !nombreServicio.isEmpty, !precio.isEmpty, !duracion.isEmpty else {
+            mostrarAlerta("Por favor ingrese todos los campos")
             return
         }
         
-        let nuevoBarbero = BarberoAPI (
-            nombreBarbero: nombre,
-            edadBarbero: edad,
-            emailBarbero: email,
-            usuarioBarbero: usuario,
-            contrasenaBarbero: contrasena
+        let nuevoServicio = ServicioAPI (
+            nombreServicio: nombreServicio,
+            precioServicio: Double(precio),
+            duracionServicio: Int(duracion)
         )
         
-        
-        guard let url = URL(string: "https://motivated-courage-production-877a.up.railway.app/api/barberos") else { return }
+        guard let url = URL(string: "https://motivated-courage-production-877a.up.railway.app/api/servicios") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -66,7 +51,7 @@ class BarberoFormViewController: UIViewController {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        request.httpBody = try? JSONEncoder().encode(nuevoBarbero)
+        request.httpBody = try? JSONEncoder().encode(nuevoServicio)
         
         URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             DispatchQueue.main.async {
@@ -92,9 +77,10 @@ class BarberoFormViewController: UIViewController {
                     }
                 }
             }.resume()
+        
     }
     
-    
+  
     private func mostrarAlerta(_ mensaje: String, titulo: String = "Atención", completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: titulo, message: mensaje, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
@@ -104,11 +90,8 @@ class BarberoFormViewController: UIViewController {
     }
 
     private func limpiarCampos() {
-        [nombreTextField, edadTextField, emaiTextField, usuarioTextField, contrasenaTextField].forEach { $0?.text = "" }
+        [servicioNombreTextField, servicioPrecioTextField, servicioDuracionTextField].forEach { $0?.text = "" }
         view.endEditing(true)
     }
-    
-    
-    
 
 }

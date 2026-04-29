@@ -1,6 +1,6 @@
 import UIKit
 
-class DetalleReservaBarberoViewController: UIViewController {
+class citaReservadaDetalleViewController: UIViewController {
 
     var cita: CitaAPI?
     

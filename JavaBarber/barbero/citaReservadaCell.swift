@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReservaBarberoCell: UITableViewCell {
+class citaReservadaCell: UITableViewCell {
     
     @IBOutlet weak var nombreClienteLabel: UILabel!
     @IBOutlet weak var servicioLabel: UILabel!
