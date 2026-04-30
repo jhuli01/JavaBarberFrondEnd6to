@@ -47,7 +47,7 @@ class ClienteMisReservasViewController: UIViewController, UITableViewDataSource,
                 do {
                     let todasLasCitas = try JSONDecoder().decode([CitaAPI].self, from: data)
                     let idCliente = self?.idCliente ?? 0
-                    let citasDelCliente = todasLasCitas.filter { $0.cliente.idCliente == idCliente }
+                    let citasDelCliente = todasLasCitas.filter { $0.cliente?.idCliente == idCliente }
                     
                     DispatchQueue.main.async {
 

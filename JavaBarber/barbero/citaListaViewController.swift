@@ -4,11 +4,16 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBOutlet weak var reservaCitaCell: UITableView!
     
+    var idBarbero: Int = 0
+    
     var citas: [CitaAPI] = []
     let apiUrl = "https://motivated-courage-production-877a.up.railway.app/api/citas"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        idBarbero = UserDefaults.standard.integer(forKey: "idBarbero")
+        
         reservaCitaCell.dataSource = self
         reservaCitaCell.delegate = self
     }
@@ -16,12 +21,16 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
     @IBAction func cerrarSesion(_ sender: Any) {
         
         UserDefaults.standard.removeObject(forKey: "userToken")
+        UserDefaults.standard.removeObject(forKey: "idBarbero")
         dismiss(animated: true, completion: nil)
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        idBarbero = UserDefaults.standard.integer(forKey: "idBarbero")
+        
         fetchReservas()
     }
     
@@ -47,8 +56,12 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
             do {
                 
                 let decoded = try JSONDecoder().decode([CitaAPI].self, from: data)
+                let idCBarbero = self?.idBarbero ?? 0
+                
+                let citasDelBarbero = decoded.filter { $0.barbero?.idBarbero == idCBarbero }
+                
                 DispatchQueue.main.async {
-                    self?.citas = decoded
+                    self?.citas = citasDelBarbero
                     self?.reservaCitaCell.reloadData()
                 }
             } catch {
@@ -70,10 +83,10 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
         }
         
         let cita = citas[indexPath.row]
-        cell.nombreClienteLabel.text = cita.cliente.nombreCliente
-        cell.servicioLabel.text = cita.servicio.nombreServicio
+        cell.nombreClienteLabel.text = cita.cliente?.nombreCliente ?? "Sin cliente"
+        cell.servicioLabel.text = cita.servicio?.nombreServicio ?? "Sin servicio"
         cell.horaLabel.text = cita.hora
-        cell.estadoLabel.text = cita.estado
+        cell.estadoLabel.text = cita.estado ?? "-"
         
         // Cambiamos el color según el estado
         switch cita.estado?.lowercased() {

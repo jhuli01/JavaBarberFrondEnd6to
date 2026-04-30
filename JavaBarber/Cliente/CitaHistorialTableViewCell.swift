@@ -16,9 +16,9 @@ class CitaHistorialTableViewCell: UITableViewCell {
     @IBOutlet weak var estadoLabel: UILabel!
     
     func configurar(con cita: CitaAPI) {
-        servicioLabel.text = cita.servicio.nombreServicio
+        servicioLabel.text = cita.servicio?.nombreServicio ?? "-"
         fechaHoraLabel.text = "\(cita.fecha) - \(cita.hora)"
-        barberoLabel.text = cita.barbero.nombreBarbero
+        barberoLabel.text = cita.barbero?.nombreBarbero ?? "-"
         estadoLabel.text = cita.estado ?? "-"
         
         switch cita.estado {

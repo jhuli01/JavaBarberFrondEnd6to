@@ -1,9 +1,3 @@
-//
-//  ReservaDetalleViewController.swift
-//  JavaBarber
-//
-//  Created by wilder trujillo on 2026/04/25.
-//
 
 import UIKit
 
@@ -18,27 +12,28 @@ class ClienteCitaDetalleViewController: UIViewController {
     @IBOutlet weak var estadoLabel: UILabel!
     @IBOutlet weak var cancelarButton: UIButton!
         
-        var cita: CitaAPI?
+    var cita: CitaAPI?
         
+    var idCita: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configurarUI()
+        guard let cita = cita else { return }
+                configurarUI(con: cita)
     }
     
-    func configurarUI() {
-        guard let cita = cita else { return }
+    func configurarUI(con cita: CitaAPI) {
         
-        servicioLabel.text = cita.servicio.nombreServicio
-        duracionLabel.text = "Duración: \(cita.servicio.duracionServicio ?? 00) min"
-        precioLabel.text = "Precio: S/.\(cita.servicio.precioServicio ?? 00.0)"
+        
+        servicioLabel.text = cita.servicio?.nombreServicio ?? "-"
+        duracionLabel.text = "Duración: \(cita.servicio?.duracionServicio ?? 00) min"
+        precioLabel.text = "Precio: S/.\(cita.servicio?.precioServicio ?? 00.0)"
         fechaLabel.text = cita.fecha
         horaLabel.text = cita.hora
-        barberoLabel.text = "Barbero: \(cita.barbero.nombreBarbero)"
+        barberoLabel.text = "Barbero: \(cita.barbero?.nombreBarbero ?? "-")"
         estadoLabel.text = cita.estado ?? "-"
         
-        // Color del estado
         switch cita.estado {
         case "Programada": estadoLabel.backgroundColor = .systemOrange
         case "Atendida": estadoLabel.backgroundColor = .systemGreen
@@ -50,7 +45,6 @@ class ClienteCitaDetalleViewController: UIViewController {
         estadoLabel.clipsToBounds = true
         
         
-        // Solo mostrar botón cancelar si está Confirmada
         cancelarButton.isHidden = cita.estado != "Programada"
     }
     

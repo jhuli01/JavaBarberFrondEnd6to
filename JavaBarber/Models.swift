@@ -27,9 +27,9 @@ struct ServicioAPI: Codable {
 
 struct CitaAPI: Codable {
     var idCita: Int?
-    var barbero: BarberoAPI
-    var cliente: ClienteAPI
-    var servicio: ServicioAPI
+    var barbero: BarberoAPI?
+    var cliente: ClienteAPI?
+    var servicio: ServicioAPI?
     var fecha: String
     var hora: String
     var estado: String?

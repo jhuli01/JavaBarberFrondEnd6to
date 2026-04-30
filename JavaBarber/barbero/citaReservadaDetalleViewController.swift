@@ -26,13 +26,13 @@ class citaReservadaDetalleViewController: UIViewController {
         guard let cita = cita else { return }
         
         
-        clienteNombreLabel.text = cita.cliente.nombreCliente
-        clienteTelefonoLabel.text = cita.cliente.telefonoCliente ?? "No disponible"
-        clienteEmailLabel.text = cita.cliente.emailCliente ?? "No disponible"
+        clienteNombreLabel.text = cita.cliente?.nombreCliente
+        clienteTelefonoLabel.text = cita.cliente?.telefonoCliente ?? "No disponible"
+        clienteEmailLabel.text = cita.cliente?.emailCliente ?? "No disponible"
         
-        servicioNombreLabel.text = cita.servicio.nombreServicio
-        servicioPrecioLabel.text = "Precio: $\(cita.servicio.precioServicio ?? 0.0)"
-        servicioDuracionLabel.text = "Duración: \(cita.servicio.duracionServicio ?? 0) min"
+        servicioNombreLabel.text = cita.servicio?.nombreServicio
+        servicioPrecioLabel.text = "Precio: $\(cita.servicio?.precioServicio ?? 0.0)"
+        servicioDuracionLabel.text = "Duración: \(cita.servicio?.duracionServicio ?? 0) min"
         
         citaFechaLabel.text = "Fecha: \(cita.fecha)"
         citaHoraLabel.text = "Hora: \(cita.hora)"

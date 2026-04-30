@@ -41,13 +41,6 @@ class ClienteInicioViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     
-    @IBAction func cerrarSesion(_ sender: Any) {
-        
-        UserDefaults.standard.removeObject(forKey: "userToken")
-            UserDefaults.standard.removeObject(forKey: "idCliente")
-            dismiss(animated: true, completion: nil)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
         idCliente = UserDefaults.standard.integer(forKey: "idCliente")
@@ -79,10 +72,10 @@ class ClienteInicioViewController: UIViewController, UITableViewDataSource, UITa
                         let todasLasCitas = try JSONDecoder().decode([CitaAPI].self, from: data)
                         let idCliente = self?.idCliente ?? 0
                         
-                        let citasDelCliente = todasLasCitas.filter { $0.cliente.idCliente == idCliente }
+                        let citasDelCliente = todasLasCitas.filter { $0.cliente?.idCliente == idCliente }
                         
                         DispatchQueue.main.async {
-                            // Separar próxima cita (Confirmada) del historial (Completada/Cancelada)
+                            
                             self?.proximaCita = citasDelCliente.first(where: { $0.estado == "Programada" })
                             self?.historialCitas = citasDelCliente.filter({ $0.estado != "Programada" })
                             self?.actualizarUI()
@@ -96,9 +89,9 @@ class ClienteInicioViewController: UIViewController, UITableViewDataSource, UITa
     
     func actualizarUI() {
         if let cita = proximaCita {
-                clienteNombreLabel.text = cita.cliente.nombreCliente
-                ServicioNombreLabel.text = cita.servicio.nombreServicio
-                nombreBarberoLabel.text = cita.barbero.nombreBarbero
+                clienteNombreLabel.text = cita.cliente?.nombreCliente
+                ServicioNombreLabel.text = cita.servicio?.nombreServicio ?? "Sin Servicio"
+                nombreBarberoLabel.text = cita.barbero?.nombreBarbero ?? "Sin Barbero"
                 fechaHoraLabel.text = "\(cita.fecha) - \(cita.hora)"
                 estadoLabel.text = cita.estado ?? "Programada"
                 estadoLabel.backgroundColor = .systemGreen
