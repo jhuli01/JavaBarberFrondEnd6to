@@ -1,9 +1,4 @@
-//
-//  ClientePerfilViewController.swift
-//  JavaBarber
-//
-//  Created by wilder trujillo on 2026/04/30.
-//
+
 
 import UIKit
 
@@ -33,8 +28,6 @@ class ClientePerfilViewController: UIViewController {
 
     func configurarVista(){
         guard let cliente = cliente else { return }
-        
-        // idCliente = UserDefaults.standard.integer(forKey: "idCliente")
         
         clienteNombreLabel.text = cliente.nombreCliente
         clienteTelefonoLabel.text = cliente.telefonoCliente ?? "No disponible"

@@ -89,33 +89,29 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-            URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-                if let error = error {
-                    print("Error de red: \(error.localizedDescription)")
-                    return
+        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            if let error = error {
+                print("Error de red: \(error.localizedDescription)")
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                print("Error del servidor: código \(httpResponse.statusCode)")
+                return
+            }
+            
+            guard let data = data else { return }
+            
+            do {
+                let decoded = try JSONDecoder().decode([BarberoAPI].self, from: data)
+                DispatchQueue.main.async {
+                    self?.barberos = decoded
+                    self?.barberoCellTableView.reloadData()
                 }
-                
-                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
-                    print("Error del servidor: código \(httpResponse.statusCode)")
-                    return
-                }
-                
-                guard let data = data else { return }
-                
-                do {
-                    let decoded = try JSONDecoder().decode([BarberoAPI].self, from: data)
-                    DispatchQueue.main.async {
-                        self?.barberos = decoded
-                        self?.barberoCellTableView.reloadData()
-                    }
-                } catch {
-                    print("Error al decodificar: \(error)")
-                }
-            }.resume()
+            } catch {
+                print("Error al decodificar: \(error)")
+            }
+        }.resume()
     }
-
-    
-    
-    
 
 }
