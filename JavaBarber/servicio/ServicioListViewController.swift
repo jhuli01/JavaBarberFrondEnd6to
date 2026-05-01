@@ -7,19 +7,22 @@
 
 import UIKit
 
-class ServicioListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+class ServicioListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate  {
     
     
+    @IBOutlet weak var buscadorSearchBar: UISearchBar!
     
     @IBOutlet weak var servicioTableViewCell: UITableView!
     
     var servicios: [ServicioAPI] = []
+    var serviciosFiltrados: [ServicioAPI] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         servicioTableViewCell.dataSource = self
         servicioTableViewCell.delegate = self
+        buscadorSearchBar.delegate = self
     }
     
 
@@ -28,8 +31,20 @@ class ServicioListViewController: UIViewController, UITableViewDataSource, UITab
         fetchServicios()
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    if searchText.isEmpty {
+        serviciosFiltrados = servicios
+    } else {
+        serviciosFiltrados = servicios.filter {
+            $0.nombreServicio.lowercased().contains(searchText.lowercased())
+        }
+    }
+    servicioTableViewCell.reloadData()
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return servicios.count
+        return serviciosFiltrados.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -38,7 +53,7 @@ class ServicioListViewController: UIViewController, UITableViewDataSource, UITab
             return UITableViewCell()
         }
         
-        let servicio = servicios[indexPath.row]
+        let servicio = serviciosFiltrados[indexPath.row]
         
         cell.servicioNombreLabel.text = servicio.nombreServicio
         cell.servicioPrecioLabel.text = "Precio: \(servicio.precioServicio ?? 0.0)"
@@ -76,6 +91,7 @@ class ServicioListViewController: UIViewController, UITableViewDataSource, UITab
                     let decoded = try JSONDecoder().decode([ServicioAPI].self, from: data)
                     DispatchQueue.main.async {
                         self?.servicios = decoded
+                        self?.serviciosFiltrados = decoded
                         self?.servicioTableViewCell.reloadData()
                     }
                 } catch {

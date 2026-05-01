@@ -31,7 +31,7 @@ class citaReservadaDetalleViewController: UIViewController {
         clienteEmailLabel.text = cita.cliente?.emailCliente ?? "No disponible"
         
         servicioNombreLabel.text = cita.servicio?.nombreServicio
-        servicioPrecioLabel.text = "Precio: $\(cita.servicio?.precioServicio ?? 0.0)"
+        servicioPrecioLabel.text = "Precio: S/.\(cita.servicio?.precioServicio ?? 0.0)"
         servicioDuracionLabel.text = "Duración: \(cita.servicio?.duracionServicio ?? 0) min"
         
         citaFechaLabel.text = "Fecha: \(cita.fecha)"
@@ -63,7 +63,12 @@ class citaReservadaDetalleViewController: UIViewController {
     }
     
     @IBAction func cancelarCita(_ sender: Any) {
-        actualizarEstado(nuevoEstado: "Cancelada")
+        let alert = UIAlertController(title: "¿Cancelar cita?", message: "Esta acción no se puede deshacer.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Sí, cancelar", style: .destructive) { [weak self] _ in
+            self?.actualizarEstado(nuevoEstado: "Cancelada")
+        })
+        alert.addAction(UIAlertAction(title: "No", style: .cancel))
+        present(alert, animated: true)
     }
     
     func actualizarEstado(nuevoEstado: String) {

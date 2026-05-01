@@ -2,28 +2,43 @@
 
 import UIKit
 
-class ClientesListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ClientesListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
 
     @IBOutlet weak var clienteCell: UITableView!
     
+    @IBOutlet weak var buscadorSearchBar: UISearchBar!
+    
     var clientes: [ClienteAPI] = []
+    var clientesFiltrados: [ClienteAPI] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         clienteCell.dataSource = self
         clienteCell.delegate = self
+        buscadorSearchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchClientesDeAPI() // Se ejecuta cada vez que la pantalla aparece
+        fetchClientesDeAPI()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            clientesFiltrados = clientes
+        } else {
+            clientesFiltrados = clientes.filter {
+                $0.nombreCliente.lowercased().contains(searchText.lowercased())
+            }
+        }
+        clienteCell.reloadData()
     }
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return clientes.count
+        return clientesFiltrados.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -31,7 +46,7 @@ class ClientesListViewController: UIViewController, UITableViewDataSource, UITab
             return UITableViewCell()
         }
         
-        let cliente = clientes[indexPath.row]
+        let cliente = clientesFiltrados[indexPath.row]
         
         cell.clienteNombreLabel.text = cliente.nombreCliente
         cell.clienteEmailLabel.text = cliente.emailCliente
@@ -67,6 +82,7 @@ class ClientesListViewController: UIViewController, UITableViewDataSource, UITab
                 let decoded = try JSONDecoder().decode([ClienteAPI].self, from: data)
                 DispatchQueue.main.async {
                     self?.clientes = decoded
+                    self?.clientesFiltrados = decoded
                     self?.clienteCell.reloadData()
                 }
             } catch {

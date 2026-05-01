@@ -10,14 +10,16 @@ import UIKit
 class ClienteMisReservasViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
    
     @IBOutlet weak var reservasTableCell: UITableView!
+    @IBOutlet weak var filtroSegmented: UISegmentedControl!
     
     var citas: [CitaAPI] = []
+    var citasFiltradas: [CitaAPI] = []
     var idCliente: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        idCliente = UserDefaults.standard.integer(forKey: "idCliente")
+        // idCliente = UserDefaults.standard.integer(forKey: "idCliente")
         
         reservasTableCell.dataSource = self
         reservasTableCell.delegate = self
@@ -28,6 +30,21 @@ class ClienteMisReservasViewController: UIViewController, UITableViewDataSource,
         idCliente = UserDefaults.standard.integer(forKey: "idCliente")
         fetchCitasCliente()
     }
+    
+    @IBAction func filtroChanged(_ sender: UISegmentedControl) {
+            aplicarFiltro()
+        }
+
+        func aplicarFiltro() {
+            switch filtroSegmented.selectedSegmentIndex {
+            case 0: citasFiltradas = citas
+            case 1: citasFiltradas = citas.filter { $0.estado == "Programada" }
+            case 2: citasFiltradas = citas.filter { $0.estado == "Cancelada" }
+            case 3: citasFiltradas = citas.filter { $0.estado == "Atendida" }
+            default: citasFiltradas = citas
+            }
+            reservasTableCell.reloadData()
+        }
     
     func fetchCitasCliente() {
         guard let url = URL(string: "https://motivated-courage-production-877a.up.railway.app/api/citas") else { return }
@@ -52,7 +69,7 @@ class ClienteMisReservasViewController: UIViewController, UITableViewDataSource,
                     DispatchQueue.main.async {
 
                         self?.citas = citasDelCliente
-                        self?.reservasTableCell.reloadData()
+                        self?.aplicarFiltro()
                     }
                 } catch {
                     print("Error al decodificar: \(error)")
@@ -62,21 +79,20 @@ class ClienteMisReservasViewController: UIViewController, UITableViewDataSource,
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return citas.count
+        return citasFiltradas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CitaReservaListCell", for: indexPath) as? CitaHistorialTableViewCell else {
-                        return UITableViewCell()
-                    }
-                    let cita = citas[indexPath.row]
-                    cell.configurar(con: cita)
-                    return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CitaReservaListCell", for: indexPath) as? CitaHistorialTableViewCell else { return UITableViewCell() }
+        
+            let cita = citasFiltradas[indexPath.row]
+            cell.configurar(con: cita)
+            return cell
     }
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let citaSeleccionada = citas[indexPath.row]
+        let citaSeleccionada = citasFiltradas[indexPath.row]
         performSegue(withIdentifier: "segueCitaDetalle", sender: citaSeleccionada)
     }
     

@@ -28,7 +28,7 @@ class ClienteCitaDetalleViewController: UIViewController {
         
         servicioLabel.text = cita.servicio?.nombreServicio ?? "-"
         duracionLabel.text = "Duración: \(cita.servicio?.duracionServicio ?? 00) min"
-        precioLabel.text = "Precio: S/.\(cita.servicio?.precioServicio ?? 00.0)"
+        precioLabel.text = "Precio: S/. \(cita.servicio?.precioServicio ?? 00.0)"
         fechaLabel.text = cita.fecha
         horaLabel.text = cita.hora
         barberoLabel.text = "Barbero: \(cita.barbero?.nombreBarbero ?? "-")"
@@ -62,7 +62,7 @@ class ClienteCitaDetalleViewController: UIViewController {
         guard let url = URL(string: "https://motivated-courage-production-877a.up.railway.app/api/citas") else { return }
         
         var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
+        request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         if let token = UserDefaults.standard.string(forKey: "userToken") {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

@@ -18,19 +18,17 @@ class CitaHistorialTableViewCell: UITableViewCell {
     func configurar(con cita: CitaAPI) {
         servicioLabel.text = cita.servicio?.nombreServicio ?? "-"
         fechaHoraLabel.text = "\(cita.fecha) - \(cita.hora)"
-        barberoLabel.text = cita.barbero?.nombreBarbero ?? "-"
+        barberoLabel.text = "Barbero \(cita.barbero?.nombreBarbero ?? "-")"
         estadoLabel.text = cita.estado ?? "-"
         
         switch cita.estado {
-        case "Atendida":
-            estadoLabel.backgroundColor = .systemGray
-        case "Cancelada":
-            estadoLabel.backgroundColor = .systemRed
-        default:
-            estadoLabel.backgroundColor = .systemGray
+        case "Programada": estadoLabel.backgroundColor = .systemOrange
+        case "Atendida": estadoLabel.backgroundColor = .systemGreen
+        case "Cancelada": estadoLabel.backgroundColor = .systemRed
+        default: estadoLabel.backgroundColor = .systemGray
         }
         estadoLabel.textColor = .white
-        estadoLabel.layer.cornerRadius = 4
+        estadoLabel.layer.cornerRadius = 8
         estadoLabel.clipsToBounds = true
     }
     
