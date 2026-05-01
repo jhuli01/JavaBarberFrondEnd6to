@@ -1,9 +1,3 @@
-//
-//  CitaHistorialTableViewCell.swift
-//  JavaBarber
-//
-//  Created by wilder trujillo on 2026/04/28.
-//
 
 import UIKit
 
@@ -17,8 +11,8 @@ class CitaHistorialTableViewCell: UITableViewCell {
     
     func configurar(con cita: CitaAPI) {
         servicioLabel.text = cita.servicio?.nombreServicio ?? "-"
-        fechaHoraLabel.text = "📅 \(cita.fecha)  •  \(cita.hora)"
-        barberoLabel.text = "✂️ \(cita.barbero?.nombreBarbero ?? "-")"
+        fechaHoraLabel.text = "\(cita.fecha)  •  \(cita.hora)"
+        barberoLabel.text = "\(cita.barbero?.nombreBarbero ?? "-")"
         estadoLabel.text = "  \(cita.estado ?? "-")  "
 
         switch cita.estado {
@@ -57,7 +51,6 @@ class CitaHistorialTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
 }

@@ -1,9 +1,3 @@
-//
-//  UsuariosCell.swift
-//  JavaBarber
-//
-//  Created by XCODE on 5/04/26.
-//
 
 import UIKit
 

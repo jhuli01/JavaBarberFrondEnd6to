@@ -35,13 +35,7 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    
-    @IBAction func cerrarSesion(_ sender: Any) {
-        
-        UserDefaults.standard.removeObject(forKey: "userToken")
-        dismiss(animated: true, completion: nil)
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchBarverosDeAPI()

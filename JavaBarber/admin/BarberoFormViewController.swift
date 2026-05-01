@@ -1,9 +1,4 @@
-//
-//  BarberoFormViewController.swift
-//  JavaBarber
-//
-//  Created by trujillo on 2026/04/21.
-//
+
 
 import UIKit
 
