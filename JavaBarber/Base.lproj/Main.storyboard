@@ -876,6 +876,7 @@
                                             </attributes>
                                         </fragment>
                                     </attributedString>
+                                    <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="guardarBarbero:" destination="AtH-IT-9NG" eventType="touchUpInside" id="vsU-er-cPa"/>
@@ -910,6 +911,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ssb-Lj-gns"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" title="Nuevo Barbero" id="Neb-RC-9hu"/>
                     <connections>
@@ -1527,7 +1529,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Registrar Servicio"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Registrar Servicio">
+                                    <color key="baseBackgroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="guardarServicio:" destination="FWN-d0-MeS" eventType="touchUpInside" id="Igd-u8-foH"/>
                                 </connections>
@@ -1535,6 +1539,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SJw-BL-A2p"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" systemColor="labelColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="Wse-EX-y8j"/>
                     <connections>

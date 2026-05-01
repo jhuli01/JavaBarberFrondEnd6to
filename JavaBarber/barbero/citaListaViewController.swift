@@ -108,9 +108,9 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
         
         // Cambiamos el color según el estado
         switch cita.estado?.lowercased() {
-        case "programada": cell.estadoLabel.backgroundColor = .systemOrange
-        case "atendida": cell.estadoLabel.backgroundColor = .systemGray
-        case "cancelada": cell.estadoLabel.backgroundColor = .systemRed
+        case "Programada": cell.estadoLabel.backgroundColor = .systemOrange
+        case "Atendida": cell.estadoLabel.backgroundColor = .systemGray
+        case "Cancelada": cell.estadoLabel.backgroundColor = .systemRed
         default: cell.estadoLabel.backgroundColor = .systemGray
         }
         

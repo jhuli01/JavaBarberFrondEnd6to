@@ -139,7 +139,7 @@ class BarberoInicioViewController: UIViewController {
         
         // Cards contadores
         estilizarCardContador(programadasCountLabel, color: .systemOrange)
-        estilizarCardContador(atendidasCountLabel, color: .systemGreen)
+        estilizarCardContador(atendidasCountLabel, color: .systemGray)
     }
     
     func estilizarCardContador(_ label: UILabel, color: UIColor) {
