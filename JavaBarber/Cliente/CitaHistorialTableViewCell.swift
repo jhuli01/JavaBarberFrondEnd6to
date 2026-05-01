@@ -17,15 +17,15 @@ class CitaHistorialTableViewCell: UITableViewCell {
     
     func configurar(con cita: CitaAPI) {
         servicioLabel.text = cita.servicio?.nombreServicio ?? "-"
-        fechaHoraLabel.text = "\(cita.fecha) - \(cita.hora)"
-        barberoLabel.text = "Barbero \(cita.barbero?.nombreBarbero ?? "-")"
-        estadoLabel.text = cita.estado ?? "-"
-        
+        fechaHoraLabel.text = "📅 \(cita.fecha)  •  \(cita.hora)"
+        barberoLabel.text = "✂️ \(cita.barbero?.nombreBarbero ?? "-")"
+        estadoLabel.text = "  \(cita.estado ?? "-")  "
+
         switch cita.estado {
         case "Programada": estadoLabel.backgroundColor = .systemOrange
-        case "Atendida": estadoLabel.backgroundColor = .systemGreen
-        case "Cancelada": estadoLabel.backgroundColor = .systemRed
-        default: estadoLabel.backgroundColor = .systemGray
+        case "Atendida":   estadoLabel.backgroundColor = .systemGreen
+        case "Cancelada":  estadoLabel.backgroundColor = .systemRed
+        default:           estadoLabel.backgroundColor = .systemGray
         }
         estadoLabel.textColor = .white
         estadoLabel.layer.cornerRadius = 8
@@ -35,7 +35,23 @@ class CitaHistorialTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        // Card style para la celda
+            contentView.backgroundColor = .systemBackground
+            contentView.layer.cornerRadius = 12
+            contentView.layer.masksToBounds = true
+            
+            backgroundColor = .clear
+            selectionStyle = .none
+            
+            // Estilo del label estado
+            estadoLabel.font = UIFont.boldSystemFont(ofSize: 12)
+            estadoLabel.textAlignment = .center
+            estadoLabel.layer.cornerRadius = 8
+            estadoLabel.clipsToBounds = true
+            
+            // Fuente servicio
+            servicioLabel.font = UIFont.boldSystemFont(ofSize: 16)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

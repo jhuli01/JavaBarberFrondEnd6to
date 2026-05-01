@@ -13,7 +13,6 @@ class ClientePerfilViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         fetchCliente()
     }
 
@@ -69,5 +68,7 @@ class ClientePerfilViewController: UIViewController {
         }.resume()
     }
 
+    
+    
     
 }

@@ -23,6 +23,20 @@ class ServicioListViewController: UIViewController, UITableViewDataSource, UITab
         servicioTableViewCell.dataSource = self
         servicioTableViewCell.delegate = self
         buscadorSearchBar.delegate = self
+        
+        view.backgroundColor = .systemGroupedBackground
+        servicioTableViewCell.backgroundColor = .clear
+        servicioTableViewCell.separatorStyle = .none
+        servicioTableViewCell.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+
+        buscadorSearchBar.backgroundImage = UIImage()
+        buscadorSearchBar.backgroundColor = .clear
+        buscadorSearchBar.searchTextField.backgroundColor = .systemBackground
+        buscadorSearchBar.searchTextField.layer.cornerRadius = 12
+        buscadorSearchBar.searchTextField.clipsToBounds = true
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
     }
     
 

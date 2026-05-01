@@ -1,9 +1,4 @@
-//
-//  LoginViewController.swift
-//  JavaBarber
-//
-//  Created by wilder trujillo on 2026/04/23.
-//
+
 
 import UIKit
 
@@ -11,10 +6,12 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var txtClave: UITextField!
     @IBOutlet weak var txtUsuario: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+       
     }
     
     @IBAction func btnIngresar(_ sender: UIButton) {
@@ -83,6 +80,8 @@ class LoginViewController: UIViewController {
             }
             task.resume()
         
+        txtUsuario.text = ""
+        txtClave.text = ""
     }
 
         func ingresarAlApp(rol: String) {

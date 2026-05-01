@@ -4,26 +4,32 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBOutlet weak var reservaCitaCell: UITableView!
     
+    @IBOutlet weak var filtroSegmented: UISegmentedControl!
+    
     var idBarbero: Int = 0
     
     var citas: [CitaAPI] = []
+    var citasFiltradas: [CitaAPI] = []
     let apiUrl = "https://motivated-courage-production-877a.up.railway.app/api/citas"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        idBarbero = UserDefaults.standard.integer(forKey: "idBarbero")
-        
         reservaCitaCell.dataSource = self
         reservaCitaCell.delegate = self
-    }
-    
-    @IBAction func cerrarSesion(_ sender: Any) {
         
-        UserDefaults.standard.removeObject(forKey: "userToken")
-        UserDefaults.standard.removeObject(forKey: "idBarbero")
-        dismiss(animated: true, completion: nil)
+        // Estilo general
+        view.backgroundColor = .systemGroupedBackground
+        reservaCitaCell.backgroundColor = .clear
+        reservaCitaCell.separatorStyle = .none
+        reservaCitaCell.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+
+        // Segmented
+        filtroSegmented.selectedSegmentTintColor = .systemOrange
+        filtroSegmented.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+        filtroSegmented.setTitleTextAttributes([.foregroundColor: UIColor.label], for: .normal)
     }
+
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,7 +40,19 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
         fetchReservas()
     }
     
-    
+    @IBAction func filtroChanged(_ sender: UISegmentedControl) {
+            aplicarFiltro()
+        }
+
+    func aplicarFiltro() {
+        switch filtroSegmented.selectedSegmentIndex {
+        case 0: citasFiltradas = citas.filter { $0.estado == "Programada" }
+        case 1: citasFiltradas = citas.filter { $0.estado == "Atendida" }
+        case 2: citasFiltradas = citas.filter { $0.estado == "Cancelada" }
+        default: citasFiltradas = citas
+        }
+        reservaCitaCell.reloadData()
+    }
     
     func fetchReservas() {
         guard let url = URL(string: apiUrl) else { return }
@@ -62,7 +80,7 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
                 
                 DispatchQueue.main.async {
                     self?.citas = citasDelBarbero
-                    self?.reservaCitaCell.reloadData()
+                    self?.aplicarFiltro()
                 }
             } catch {
                 print("Error al decodificar: \(error)")
@@ -73,7 +91,7 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return citas.count
+        return citasFiltradas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -82,7 +100,7 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
             return UITableViewCell()
         }
         
-        let cita = citas[indexPath.row]
+        let cita = citasFiltradas[indexPath.row]
         cell.nombreClienteLabel.text = cita.cliente?.nombreCliente ?? "Sin cliente"
         cell.servicioLabel.text = cita.servicio?.nombreServicio ?? "Sin servicio"
         cell.horaLabel.text = cita.hora
@@ -91,7 +109,7 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
         // Cambiamos el color según el estado
         switch cita.estado?.lowercased() {
         case "programada": cell.estadoLabel.backgroundColor = .systemOrange
-        case "atendida": cell.estadoLabel.backgroundColor = .systemGreen
+        case "atendida": cell.estadoLabel.backgroundColor = .systemGray
         case "cancelada": cell.estadoLabel.backgroundColor = .systemRed
         default: cell.estadoLabel.backgroundColor = .systemGray
         }
@@ -103,10 +121,14 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let citaSeleccionada = citas[indexPath.row]
+        let citaSeleccionada = citasFiltradas[indexPath.row]
         
         performSegue(withIdentifier: "segueCitaDetalle", sender: citaSeleccionada)
     }

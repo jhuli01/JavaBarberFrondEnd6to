@@ -18,6 +18,22 @@ class BarberoListViewController: UIViewController, UITableViewDataSource, UITabl
         barberoCellTableView.delegate = self
         buscadorSearchBar.delegate = self
         
+        // Estilo general
+        view.backgroundColor = .systemGroupedBackground
+        barberoCellTableView.backgroundColor = .clear
+        barberoCellTableView.separatorStyle = .none
+        barberoCellTableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+
+        // Estilo SearchBar
+        buscadorSearchBar.backgroundImage = UIImage()
+        buscadorSearchBar.backgroundColor = .clear
+        buscadorSearchBar.searchTextField.backgroundColor = .systemBackground
+        buscadorSearchBar.searchTextField.layer.cornerRadius = 12
+        buscadorSearchBar.searchTextField.clipsToBounds = true
+        
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
     @IBAction func cerrarSesion(_ sender: Any) {

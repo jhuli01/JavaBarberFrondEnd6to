@@ -16,7 +16,11 @@ class citaReservadaDetalleViewController: UIViewController {
     @IBOutlet weak var citaFechaLabel: UILabel!
     @IBOutlet weak var citaHoraLabel: UILabel!
     @IBOutlet weak var citaEstadoLabel: UILabel!
-
+    
+    @IBOutlet weak var atendidaButton: UIButton!
+    
+    @IBOutlet weak var cancelarButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configurarVista()
@@ -39,6 +43,21 @@ class citaReservadaDetalleViewController: UIViewController {
         citaEstadoLabel.text = "Estado: \(cita.estado ?? "Desconocido")"
         
         actualizarColorEstado(cita.estado)
+        
+        switch cita.estado {
+        case "Programada":
+            atendidaButton.isHidden = false
+            cancelarButton.isHidden = false
+        case "Atendida":
+            atendidaButton.isHidden = true
+            cancelarButton.isHidden = true
+        case "Cancelada":
+            atendidaButton.isHidden = true
+            cancelarButton.isHidden = true
+        default:
+            atendidaButton.isHidden = true
+            cancelarButton.isHidden = true
+        }
     }
     
     func actualizarColorEstado(_ estado: String?) {
@@ -56,10 +75,6 @@ class citaReservadaDetalleViewController: UIViewController {
     // Acciones de los botones
     @IBAction func marcarCompletada(_ sender: Any) {
         actualizarEstado(nuevoEstado: "Atendida")
-    }
-    
-    @IBAction func confirmarCita(_ sender: Any) {
-        actualizarEstado(nuevoEstado: "Programada")
     }
     
     @IBAction func cancelarCita(_ sender: Any) {

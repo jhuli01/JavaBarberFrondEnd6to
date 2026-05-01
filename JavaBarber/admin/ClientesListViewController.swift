@@ -18,6 +18,20 @@ class ClientesListViewController: UIViewController, UITableViewDataSource, UITab
         clienteCell.dataSource = self
         clienteCell.delegate = self
         buscadorSearchBar.delegate = self
+        
+        view.backgroundColor = .systemGroupedBackground
+        clienteCell.backgroundColor = .clear
+        clienteCell.separatorStyle = .none
+        clienteCell.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+
+        buscadorSearchBar.backgroundImage = UIImage()
+        buscadorSearchBar.backgroundColor = .clear
+        buscadorSearchBar.searchTextField.backgroundColor = .systemBackground
+        buscadorSearchBar.searchTextField.layer.cornerRadius = 12
+        buscadorSearchBar.searchTextField.clipsToBounds = true
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
     }
     
     override func viewWillAppear(_ animated: Bool) {

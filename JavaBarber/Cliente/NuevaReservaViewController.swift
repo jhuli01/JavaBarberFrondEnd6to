@@ -27,27 +27,26 @@ class NuevaReservaViewController: UIViewController,UIPickerViewDelegate, UIPicke
     @IBOutlet weak var comboBarbero: UIPickerView!
     @IBOutlet weak var comboServicio: UIPickerView!
     
-        var listaBarberos: [BarberoAPI] = []
-        var listaServicios: [ServicioAPI] = []
-        
+    var listaBarberos: [BarberoAPI] = []
+    var listaServicios: [ServicioAPI] = []
     
-        var idBarberoSeleccionado: Int?
-        var idServicioSeleccionado: Int?
+
+    var idBarberoSeleccionado: Int?
+    var idServicioSeleccionado: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Configurar delegados de los pickers
-                comboBarbero.delegate = self
-                comboBarbero.dataSource = self
-                comboServicio.delegate = self
-                comboServicio.dataSource = self
-                
-                // Configurar DatePickers para que solo muestren lo necesario
-                fechaCita.datePickerMode = .date
-                horaCita.datePickerMode = .time
-                
-                cargarDatosDeAPI()
+        comboBarbero.delegate = self
+        comboBarbero.dataSource = self
+        comboServicio.delegate = self
+        comboServicio.dataSource = self
+        
+        fechaCita.datePickerMode = .date
+        horaCita.datePickerMode = .time
+        
+        aplicarEstilo()
+        cargarDatosDeAPI()
     }
     func cargarDatosDeAPI() {
         let token = UserDefaults.standard.string(forKey: "userToken") ?? ""
@@ -137,6 +136,31 @@ class NuevaReservaViewController: UIViewController,UIPickerViewDelegate, UIPicke
                 }
             }
         }.resume()
+    }
+    
+    func aplicarEstilo() {
+        // Fondo general
+        view.backgroundColor = UIColor.systemGroupedBackground
+        
+        // Estilo PickerViews
+        for picker in [comboBarbero, comboServicio] {
+            picker?.backgroundColor = .systemBackground
+            picker?.layer.cornerRadius = 12
+            picker?.layer.borderWidth = 1
+            picker?.layer.borderColor = UIColor.systemGray4.cgColor
+            picker?.clipsToBounds = true
+        }
+        
+        // Estilo DatePickers
+        for datePicker in [fechaCita, horaCita] {
+            datePicker?.backgroundColor = .systemBackground
+            datePicker?.layer.cornerRadius = 12
+            datePicker?.layer.borderWidth = 1
+            datePicker?.layer.borderColor = UIColor.systemGray4.cgColor
+            datePicker?.clipsToBounds = true
+            datePicker?.tintColor = .systemBlue
+            datePicker?.preferredDatePickerStyle = .compact
+        }
     }
 
     // MARK: - UIPickerView DataSource & Delegate

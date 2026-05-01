@@ -19,10 +19,20 @@ class ClienteMisReservasViewController: UIViewController, UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // idCliente = UserDefaults.standard.integer(forKey: "idCliente")
         
         reservasTableCell.dataSource = self
         reservasTableCell.delegate = self
+        
+        // Estilo general
+        view.backgroundColor = .systemGroupedBackground
+        reservasTableCell.backgroundColor = .clear
+        reservasTableCell.separatorStyle = .none
+        reservasTableCell.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+
+        // Estilo segmented
+        filtroSegmented.selectedSegmentTintColor = .systemOrange
+        filtroSegmented.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+        filtroSegmented.setTitleTextAttributes([.foregroundColor: UIColor.label], for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +99,10 @@ class ClienteMisReservasViewController: UIViewController, UITableViewDataSource,
             cell.configurar(con: cita)
             return cell
     }
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 110
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let citaSeleccionada = citasFiltradas[indexPath.row]

@@ -1,9 +1,3 @@
-//
-//  BarberoPerfilViewController.swift
-//  JavaBarber
-//
-//  Created by wilder trujillo on 2026/04/30.
-//
 
 import UIKit
 

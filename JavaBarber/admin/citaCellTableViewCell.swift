@@ -1,19 +1,13 @@
-//
-//  ReservaBarberoCellTableViewCell.swift
-//  JavaBarber
-//
-//  Created by wilder trujillo on 2026/04/25.
-//
 
 import UIKit
 
-class citaReservadaCell: UITableViewCell {
-    
+class citaCellTableViewCell: UITableViewCell {
+
     @IBOutlet weak var nombreClienteLabel: UILabel!
     @IBOutlet weak var servicioLabel: UILabel!
     @IBOutlet weak var horaLabel: UILabel!
     @IBOutlet weak var estadoLabel: UILabel!
- 
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -48,14 +42,12 @@ class citaReservadaCell: UITableViewCell {
         estadoLabel.clipsToBounds = true
     }
     
-    //===
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16))
     }
-    
-    
-    
+
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

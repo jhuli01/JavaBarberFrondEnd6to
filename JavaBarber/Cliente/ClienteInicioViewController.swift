@@ -38,6 +38,7 @@ class ClienteInicioViewController: UIViewController, UITableViewDataSource, UITa
         proximaCitaView.addGestureRecognizer(tap)
         proximaCitaView.isUserInteractionEnabled = true
         
+        aplicarEstilo()
     }
     
     
@@ -54,12 +55,12 @@ class ClienteInicioViewController: UIViewController, UITableViewDataSource, UITa
 
     
     func fetchCitasCliente() {
-            guard let url = URL(string: "https://motivated-courage-production-877a.up.railway.app/api/citas") else { return }
-            
-            var request = URLRequest(url: url)
-            if let token = UserDefaults.standard.string(forKey: "userToken") {
-                request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            }
+        guard let url = URL(string: "https://motivated-courage-production-877a.up.railway.app/api/citas") else { return }
+        
+        var request = URLRequest(url: url)
+        if let token = UserDefaults.standard.string(forKey: "userToken") {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
             
         URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
                     if let error = error {
@@ -87,22 +88,40 @@ class ClienteInicioViewController: UIViewController, UITableViewDataSource, UITa
                 }.resume()
         }
     
+    func aplicarEstilo() {
+        // Fondo general
+        view.backgroundColor = UIColor.systemGroupedBackground
+        historialCitaTableCell.backgroundColor = .clear
+
+        // Card próxima cita
+        proximaCitaView.backgroundColor = .systemBackground
+        proximaCitaView.layer.cornerRadius = 16
+        proximaCitaView.layer.shadowColor = UIColor.black.cgColor
+        proximaCitaView.layer.shadowOpacity = 0.08
+        proximaCitaView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        proximaCitaView.layer.shadowRadius = 8
+        proximaCitaView.clipsToBounds = false
+    }
+    
     func actualizarUI() {
         if let cita = proximaCita {
-                clienteNombreLabel.text = cita.cliente?.nombreCliente
-                ServicioNombreLabel.text = cita.servicio?.nombreServicio ?? "Sin Servicio"
-                nombreBarberoLabel.text = cita.barbero?.nombreBarbero ?? "Sin Barbero"
-                fechaHoraLabel.text = "\(cita.fecha) - \(cita.hora)"
-                estadoLabel.text = cita.estado ?? "Programada"
-                estadoLabel.backgroundColor = .systemGreen
-                estadoLabel.textColor = .white
-                estadoLabel.layer.cornerRadius = 4
-                estadoLabel.clipsToBounds = true
-                proximaCitaView.isHidden = false
-            } else {
-                proximaCitaView.isHidden = true   // ocultar card si no hay cita
-            }
+            clienteNombreLabel.text = "Hola, \(cita.cliente?.nombreCliente ?? "Cliente")"
+            ServicioNombreLabel.text = cita.servicio?.nombreServicio ?? "Sin Servicio"
+            nombreBarberoLabel.text = cita.barbero?.nombreBarbero ?? "Sin Barbero"
+            fechaHoraLabel.text = "\(cita.fecha)  •  \(cita.hora)"
+
+            estadoLabel.text = "  \(cita.estado ?? "Programada")  "
+            estadoLabel.backgroundColor = .systemOrange
+            estadoLabel.textColor = .white
+            estadoLabel.font = UIFont.boldSystemFont(ofSize: 13)
+            estadoLabel.layer.cornerRadius = 8
+            estadoLabel.clipsToBounds = true
+
+            proximaCitaView.isHidden = false
+        } else {
+            proximaCitaView.isHidden = true
         }
+    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
