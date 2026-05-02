@@ -63,7 +63,7 @@ class citaReservadaDetalleViewController: UIViewController {
     func actualizarColorEstado(_ estado: String?) {
         switch estado?.lowercased() {
         case "programada": citaEstadoLabel.backgroundColor = .systemOrange
-        case "atendida": citaEstadoLabel.backgroundColor = .systemGreen
+        case "atendida": citaEstadoLabel.backgroundColor = .systemGray
         case "cancelada": citaEstadoLabel.backgroundColor = .systemRed
         default: citaEstadoLabel.backgroundColor = .systemGray
         }

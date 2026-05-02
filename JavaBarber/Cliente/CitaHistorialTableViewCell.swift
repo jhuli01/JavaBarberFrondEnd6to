@@ -17,7 +17,7 @@ class CitaHistorialTableViewCell: UITableViewCell {
 
         switch cita.estado {
         case "Programada": estadoLabel.backgroundColor = .systemOrange
-        case "Atendida":   estadoLabel.backgroundColor = .systemGreen
+        case "Atendida":   estadoLabel.backgroundColor = .systemGray
         case "Cancelada":  estadoLabel.backgroundColor = .systemRed
         default:           estadoLabel.backgroundColor = .systemGray
         }

@@ -153,10 +153,5 @@ class BarberoInicioViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textColor = color
         
-        // Estilo del label debajo del número
-        if let descLabel = card.subviews.compactMap({ $0 as? UILabel }).last {
-            descLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-            descLabel.textColor = color
-        }
     }
 }
