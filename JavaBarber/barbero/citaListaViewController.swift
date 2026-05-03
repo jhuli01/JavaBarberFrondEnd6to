@@ -103,7 +103,7 @@ class citaListaViewController: UIViewController, UITableViewDataSource, UITableV
         let cita = citasFiltradas[indexPath.row]
         cell.nombreClienteLabel.text = cita.cliente?.nombreCliente ?? "Sin cliente"
         cell.servicioLabel.text = cita.servicio?.nombreServicio ?? "Sin servicio"
-        cell.horaLabel.text = cita.hora
+        cell.horaLabel.text = "\(cita.fecha)  •  \(cita.hora)"
         cell.estadoLabel.text = cita.estado ?? "-"
         
         // Cambiamos el color según el estado

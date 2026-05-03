@@ -57,29 +57,53 @@ class ClienteInicioViewController: UIViewController, UITableViewDataSource, UITa
         }
             
         URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-                    if let error = error {
-                        print("Error: \(error.localizedDescription)")
-                        return
-                    }
-                    guard let data = data else { return }
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            guard let data = data else { return }
+            
+            do {
+                let todasLasCitas = try JSONDecoder().decode([CitaAPI].self, from: data)
+                let idCliente = self?.idCliente ?? 0
+                
+                let citasDelCliente = todasLasCitas.filter { $0.cliente?.idCliente == idCliente }
+                
+                DispatchQueue.main.async {
                     
-                    do {
-                        let todasLasCitas = try JSONDecoder().decode([CitaAPI].self, from: data)
-                        let idCliente = self?.idCliente ?? 0
-                        
-                        let citasDelCliente = todasLasCitas.filter { $0.cliente?.idCliente == idCliente }
-                        
-                        DispatchQueue.main.async {
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd"
+                    let hoy = Date()
+                    
+                    self?.proximaCita = citasDelCliente
+                        .filter { $0.estado == "Programada" }
+                        .filter {
+                            if let fecha = formatter.date(from: $0.fecha) {
+                                return fecha >= Calendar.current.startOfDay(for: hoy)
+                            }
+                            return false
+                        }.sorted {
+                            let formatterCompleto = DateFormatter()
+                            formatterCompleto.dateFormat = "yyyy-MM-dd HH:mm:ss"
                             
-                            self?.proximaCita = citasDelCliente.first(where: { $0.estado == "Programada" })
-                            self?.historialCitas = citasDelCliente.filter({ $0.estado != "Programada" })
-                            self?.actualizarUI()
-                            self?.historialCitaTableCell.reloadData()
+                            let str1 = "\($0.fecha) \($0.hora)"
+                            let str2 = "\($1.fecha) \($1.hora)"
+                            
+                            let fechaHora1 = formatterCompleto.date(from: str1) ?? Date.distantFuture
+                            let fechaHora2 = formatterCompleto.date(from: str2) ?? Date.distantFuture
+                            
+                            return fechaHora1 < fechaHora2
                         }
-                    } catch {
-                        print("Error al decodificar: \(error)")
-                    }
-                }.resume()
+                        .first
+                    
+                    self?.historialCitas = citasDelCliente.filter({ $0.estado != "Programada" })
+                    self?.actualizarUI()
+                    self?.historialCitaTableCell.reloadData()
+                }
+            } catch {
+                print("Error al decodificar: \(error)")
+            }
+            }.resume()
         }
     
     func aplicarEstilo() {
@@ -99,22 +123,32 @@ class ClienteInicioViewController: UIViewController, UITableViewDataSource, UITa
     
     func actualizarUI() {
         if let cita = proximaCita {
-            clienteNombreLabel.text = "Hola, \(cita.cliente?.nombreCliente ?? "Cliente")"
-            ServicioNombreLabel.text = cita.servicio?.nombreServicio ?? "Sin Servicio"
-            nombreBarberoLabel.text = cita.barbero?.nombreBarbero ?? "Sin Barbero"
-            fechaHoraLabel.text = "\(cita.fecha)  •  \(cita.hora)"
+                clienteNombreLabel.text = "Hola, \(cita.cliente?.nombreCliente ?? "Cliente")"
+                ServicioNombreLabel.text = cita.servicio?.nombreServicio ?? "Sin Servicio"
+                nombreBarberoLabel.text = cita.barbero?.nombreBarbero ?? "Sin Barbero"
+                fechaHoraLabel.text = "\(cita.fecha)  •  \(cita.hora)"
 
-            estadoLabel.text = "  \(cita.estado ?? "Programada")  "
-            estadoLabel.backgroundColor = .systemOrange
-            estadoLabel.textColor = .white
-            estadoLabel.font = UIFont.boldSystemFont(ofSize: 13)
-            estadoLabel.layer.cornerRadius = 8
-            estadoLabel.clipsToBounds = true
+                estadoLabel.text = "  \(cita.estado ?? "Programada")  "
+                estadoLabel.backgroundColor = .systemOrange
+                estadoLabel.textColor = .white
+                estadoLabel.font = UIFont.boldSystemFont(ofSize: 13)
+                estadoLabel.layer.cornerRadius = 8
+                estadoLabel.clipsToBounds = true
 
-            proximaCitaView.isHidden = false
-        } else {
-            proximaCitaView.isHidden = true
-        }
+                proximaCitaView.isHidden = false
+
+            } else {
+                // Mostrar card con mensaje vacío
+                proximaCitaView.isHidden = false
+                ServicioNombreLabel.text = "No tienes citas próximas"
+                ServicioNombreLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+                ServicioNombreLabel.textColor = .secondaryLabel
+                nombreBarberoLabel.text = ""
+                fechaHoraLabel.text = ""
+                estadoLabel.text = ""
+                estadoLabel.backgroundColor = .clear
+                clienteNombreLabel.text = "Hola!"
+            }
     }
     
     

@@ -98,7 +98,7 @@ class AdminCitaListViewController: UIViewController, UITableViewDataSource, UITa
             let cita = citasFiltradas[indexPath.row]
             cell.nombreClienteLabel.text = cita.cliente?.nombreCliente ?? "Sin cliente"
             cell.servicioLabel.text = cita.servicio?.nombreServicio ?? "Sin servicio"
-            cell.horaLabel.text = cita.hora
+            cell.horaLabel.text = "\(cita.fecha)  •  \(cita.hora)"
             cell.estadoLabel.text = cita.estado ?? "-"
             
             // Cambiamos el color según el estado
@@ -119,6 +119,20 @@ class AdminCitaListViewController: UIViewController, UITableViewDataSource, UITa
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return 120
         }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let citaSeleccionada = citasFiltradas[indexPath.row]
+        
+        performSegue(withIdentifier: "segueCitaDetalle", sender: citaSeleccionada)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueCitaDetalle",
+           let destination = segue.destination as? citaReservadaDetalleViewController,
+           let cita = sender as? CitaAPI {
+            destination.cita = cita
+        }
+    }
         
 }
 

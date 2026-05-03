@@ -61,8 +61,35 @@ class BarberoInicioViewController: UIViewController {
                 let citasDelBarbero = todasLasCitas.filter { $0.barbero?.idBarbero == idCliente }
                 
                 DispatchQueue.main.async {
+                    
+                    let formatter = DateFormatter()
+                        formatter.dateFormat = "yyyy-MM-dd"
+                        let hoy = Date()
+                    
                     self?.citas = citasDelBarbero
-                    self?.proximaCita = citasDelBarbero.first(where: { $0.estado == "Programada" })
+                    
+                    self?.proximaCita = citasDelBarbero
+                        .filter { $0.estado == "Programada" }
+                        .filter {
+                            if let fecha = formatter.date(from: $0.fecha) {
+                                return fecha >= Calendar.current.startOfDay(for: hoy)
+                            }
+                            return false
+                        }
+                        .sorted {
+                            let formatterCompleto = DateFormatter()
+                            formatterCompleto.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                            
+                            let str1 = "\($0.fecha) \($0.hora)"
+                            let str2 = "\($1.fecha) \($1.hora)"
+                            
+                            let fechaHora1 = formatterCompleto.date(from: str1) ?? Date.distantFuture
+                            let fechaHora2 = formatterCompleto.date(from: str2) ?? Date.distantFuture
+                            
+                            return fechaHora1 < fechaHora2
+                        }
+                        .first
+                    
                     self?.actualizarUI()
                 }
             } catch {
@@ -73,11 +100,12 @@ class BarberoInicioViewController: UIViewController {
     }
     
     func actualizarUI() {
+        nombreBarberoLabel.text = "Hola, \(citas.first?.barbero?.nombreBarbero ?? "Barbero")"
+
         if let cita = proximaCita {
             clienteNombreLabel.text = cita.cliente?.nombreCliente
             servicioNombreLabel.text = cita.servicio?.nombreServicio ?? "Sin Servicio"
-            nombreBarberoLabel.text = cita.barbero?.nombreBarbero ?? "Sin Barbero"
-            fechaHoraLabel.text = "\(cita.fecha) - \(cita.hora)"
+            fechaHoraLabel.text = "\(cita.fecha)  •  \(cita.hora)"
             estadoLabel.text = "  \(cita.estado ?? "Programada")  "
             estadoLabel.font = UIFont.boldSystemFont(ofSize: 13)
             estadoLabel.backgroundColor = .systemOrange
@@ -85,12 +113,18 @@ class BarberoInicioViewController: UIViewController {
             estadoLabel.layer.cornerRadius = 8
             estadoLabel.clipsToBounds = true
             proximaCitaView.isHidden = false
+
         } else {
-            proximaCitaView.isHidden = true
+            proximaCitaView.isHidden = false
+            servicioNombreLabel.text = "No tienes citas próximas"
+            servicioNombreLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+            servicioNombreLabel.textColor = .secondaryLabel
+            clienteNombreLabel.text = ""
+            fechaHoraLabel.text = ""
+            estadoLabel.text = ""
+            estadoLabel.backgroundColor = .clear
         }
-        
-        nombreBarberoLabel.text = "Hola, \(citas.first?.barbero?.nombreBarbero ?? "Barbero")"
-        
+
         let programadas = citas.filter { $0.estado == "Programada" }.count
         let atendidas = citas.filter { $0.estado == "Atendida" }.count
         programadasCountLabel.text = "\(programadas)"
